@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-# 配置日志
+# 设置日志
 logging.basicConfig(
     filename='import_data.log',  # 日志文件名
     level=logging.INFO,          # 日志级别

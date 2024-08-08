@@ -13,7 +13,7 @@ import logging
 
 
 
-# 设置日志记录
+# 设置日志
 logging.basicConfig(
     filename='web_scraping.log',
     level=logging.INFO,

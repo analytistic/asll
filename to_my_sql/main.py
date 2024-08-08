@@ -2,9 +2,9 @@ import time
 from sql_tool import import_excel_to_mysql
 from down_data import init,data_imp,data_down
 import os
-# 数据库维护
 
-# 导入数据
+
+
 if __name__ == "__main__":
 
     # 设置路径
