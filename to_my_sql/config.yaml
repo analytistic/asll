@@ -6,5 +6,5 @@ charset: utf8mb4
 download_directory: "data_to_mysql"
 web: "https://als.ashermed.com/web/login"
 web_user: 15079056088
-web_password: 05608
+web_password: 056088
 web_driver_path: "D://chromedriver-win64//chromedriver.exe"
