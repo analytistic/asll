@@ -130,7 +130,10 @@ def import_data(cursor, sheet_name, df):
     for i, row in df.iterrows():
         # 构建 SQL 插入查询
         placeholders = ', '.join(['%s'] * len(row))
-        insert_query = f"INSERT INTO `{sheet_name}` ({', '.join(columns)}) VALUES ({placeholders})"
+        insert_query = f"""
+            INSERT IGNORE INTO `{sheet_name}` ({', '.join(columns)}) # 注意如果用postgresql，应该使用insert into ... on 
+            VALUES ({placeholders});
+            """
 
         try:
             # 执行插入操作
@@ -191,3 +194,11 @@ def import_excel_to_mysql(excel_folder, config_file):
         cursor.close()
         connection.close()
 
+if __name__=="__main__":
+    # 设置路径
+    excel_folder = os.path.join(os.getcwd(), 'data_to_mysql')  # 数据文件夹路径
+    config_file = os.path.join(os.getcwd(), 'config.yaml')  # 配置文件路径
+
+
+    # 更新数据库
+    import_excel_to_mysql(excel_folder, config_file)

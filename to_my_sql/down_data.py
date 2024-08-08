@@ -215,7 +215,7 @@ def data_down(config, edge_options):
 
 
     finally:
-        time.sleep(10)  # 等待页面加载
+        time.sleep(60)  # 等待下载
         # 关闭浏览器
         driver.quit()
 

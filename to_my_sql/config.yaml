@@ -1,6 +1,6 @@
-host: localhost
+host: rm-uf686mnkbma2165skpo.mysql.rds.aliyuncs.com
 user: root
-password: Xwt985211
+password: PoBing101901
 database: wx_data
 charset: utf8mb4
 download_directory: "data_to_mysql"
