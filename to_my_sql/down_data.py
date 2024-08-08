@@ -8,6 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.edge.options import Options
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import logging
 
 
@@ -34,6 +35,7 @@ def init(config_file):
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
 
+    #  创建数据文件夹
     file_path = os.path.join(os.getcwd(), config["download_directory"])
     if not os.path.exists(file_path):
         os.makedirs(file_path)
@@ -76,8 +78,9 @@ def data_imp(config):
     """
 
 
-
-    driver = webdriver.Chrome()
+    # 创建实例
+    service = Service(executable_path=config["web_driver_path"])
+    driver = webdriver.Chrome(service=service)
     driver.get(config["web"])
 
 
@@ -155,8 +158,9 @@ def data_down(config, edge_options):
 
 
 
-    # 初始化 WebDriver
-    driver = webdriver.Chrome(options=edge_options)
+    # 创建WebDriver
+    service = Service(executable_path=config["web_driver_path"])
+    driver = webdriver.Chrome(service = service, options=edge_options)
     driver.get(config["web"])
 
 
@@ -224,7 +228,7 @@ if __name__ == "__main__":
 
     config, edge_options =init(config_file)
 
-    # data_imp()
+    data_imp(config)
     # time.sleep(600)
     # data_down()
 
