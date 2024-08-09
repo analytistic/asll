@@ -30,7 +30,6 @@ def init(config_file):
     :return: config,edge_options
     """
 
-
     # 读取 YAML 配置文件
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
@@ -76,7 +75,6 @@ def data_imp(config):
     导出数据
     :return:
     """
-
 
     # 创建实例
     service = Service(executable_path=config["web_driver_path"])
@@ -155,8 +153,6 @@ def data_down(config, edge_options):
     :param edge_options:
     :return:
     """
-
-
 
     # 创建WebDriver
     service = Service(executable_path=config["web_driver_path"])
