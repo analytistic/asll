@@ -5,6 +5,7 @@ from mysql.connector import Error
 import os
 import logging
 import numpy as np
+import re
 
 
 
@@ -55,6 +56,17 @@ def create_connection(config):
 
 
 
+def sanitize_column_name(col_name):
+    # 修改非法列名
+
+    col_name = col_name.strip()
+    if re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', col_name):
+        return col_name
+    else:
+        return f'_{col_name}'
+
+
+
 def create_table(cursor, sheet_name, df):
     """
     创建表
@@ -69,7 +81,7 @@ def create_table(cursor, sheet_name, df):
     # 创建列
     def generate_create_table_query(df, use_text=False):
         column_type = 'TEXT' if use_text else 'VARCHAR(255)'
-        columns = ', '.join([f'`{col}` {column_type}' for col in df.columns])
+        columns = ', '.join([f'`{sanitize_column_name(col)}` {column_type}' for col in df.columns])
         return f"""
            CREATE TABLE IF NOT EXISTS `{sheet_name}` (
                id INT AUTO_INCREMENT PRIMARY KEY,
@@ -124,14 +136,14 @@ def import_data(cursor, sheet_name, df):
     df = df.replace(np.nan, None)
 
 
-    columns = [f'`{col}`' for col in df.columns]
+    columns = [f'`{sanitize_column_name(col)}`' for col in df.columns]
 
 
     for i, row in df.iterrows():
         # 构建 SQL 插入查询
         placeholders = ', '.join(['%s'] * len(row))
         insert_query = f"""
-            INSERT IGNORE INTO `{sheet_name}` ({', '.join(columns)}) # 注意如果用postgresql，应该使用insert into ... on 
+            INSERT IGNORE INTO `{sheet_name}` ({', '.join(columns)}) 
             VALUES ({placeholders});
             """
 
