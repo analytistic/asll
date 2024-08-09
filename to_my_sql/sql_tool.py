@@ -6,7 +6,9 @@ import os
 import logging
 import numpy as np
 import re
-
+from tqdm import tqdm
+import sys
+sys.setrecursionlimit(3000)  # 将递归深度限制设置为3000
 
 
 # 设置日志
@@ -188,8 +190,13 @@ def import_excel_to_mysql(excel_folder, config_file):
                 file_path = os.path.join(excel_folder, file_name)
                 xls = pd.ExcelFile(file_path)
 
-                for sheet_name in xls.sheet_names:
+                sheet_names = xls.sheet_names
+                for sheet_name in tqdm(sheet_names, desc=f"Processing {file_name}", unit='sheet'):
+
                     df = pd.read_excel(file_path, sheet_name=sheet_name)
+
+                    if sheet_name in {'其他辅助检查', '治疗经历'}:
+                        continue
 
                     # 难道我们为每一个sheet都单独设置？
                     create_table(cursor, sheet_name, df)

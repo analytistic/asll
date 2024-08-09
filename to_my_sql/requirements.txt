@@ -2,3 +2,4 @@ numpy==2.0.0
 pandas==2.2.2
 PyYAML==6.0.1
 selenium==4.23.1
+tqdm==23.2.1
