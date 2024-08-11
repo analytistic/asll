@@ -13,7 +13,7 @@ recreate: NONE
 
 # 爬虫脚本设置
 download_directory: "data_to_mysql"
-web: "https:"
-web_user: qwe
-web_password: qwe
+web: "https://als.ashermed.com/web/login"
+web_user: xx
+web_password: xx
 web_driver_path: "D://chromedriver-win64//chromedriver.exe"

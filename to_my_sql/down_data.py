@@ -12,7 +12,6 @@ from selenium.webdriver.chrome.service import Service
 import logging
 
 
-
 # 设置日志
 logging.basicConfig(
     filename='web_scraping.log',
@@ -31,7 +30,7 @@ def init(config_file):
     """
 
     # 读取 YAML 配置文件
-    with open(config_file, 'r') as file:
+    with open(config_file, 'r', encoding='utf_8_sig') as file:
         config = yaml.safe_load(file)
 
     #  创建数据文件夹
@@ -44,11 +43,9 @@ def init(config_file):
         "download.default_directory": file_path
     }
 
-
     # 创建 Options 实例
     edge_options = Options()
     edge_options.add_experimental_option("prefs", prefs)
-
 
     # 清空data
     if os.path.exists(file_path) and os.path.isdir(file_path):
@@ -61,15 +58,14 @@ def init(config_file):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
                     logging.info(f'删除{file_path}成功')
-
             except Exception as e:
-                logging.error(f'删除{file_path}失败')
+                logging.error(f'删除{file_path}失败, {e}')
 
 
     return config, edge_options
 
 
-            # 数据导出函数
+# 数据导出函数
 def data_imp(config):
     """
     导出数据
@@ -79,34 +75,33 @@ def data_imp(config):
     # 创建实例
     service = Service(executable_path=config["web_driver_path"])
     driver = webdriver.Chrome(service=service)
-    driver.get(config["web"])
-
+    try:
+        driver.get(config["web"])
+        logging.info('连接网页成功')
+    except Exception as e:
+        logging.error(f'连接网页{config["web"]}失败，请检查网络连接，{e}')
 
     # 切换class
     re = driver.find_element(By.XPATH, "//div[@class='login-form__operation']/span[text()='用户名密码登录']")
     re.click()
-
 
     # 输入账号
     wait = WebDriverWait(driver, 10)
     input_element = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".login-form__control input.control.ant-input")))
     password_input_element = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".login-form__control input[type='password']")))
 
-
     # 输入密码
     input_element.send_keys(config["web_user"])
     password_input_element.send_keys(config["web_password"])
-
 
     # 点击按钮
     login_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".login-form__sumb button.control-button")))
     login_button.click()
 
-    time.sleep(5)
+    # time.sleep(5)
     # 数据导出
     menu_item = wait.until(EC.element_to_be_clickable((By.XPATH, "//li[span[text()='数据导出']]")))
     menu_item.click()
-
 
     try:
         # 等待直到加载动画或遮罩层消失
@@ -140,10 +135,8 @@ def data_imp(config):
 
     finally:
         # 关闭浏览器
-        time.sleep(5)  # 等待页面加载
+        time.sleep(5)
         driver.quit()
-
-
 
 
 def data_down(config, edge_options):
@@ -159,11 +152,9 @@ def data_down(config, edge_options):
     driver = webdriver.Chrome(service = service, options=edge_options)
     driver.get(config["web"])
 
-
     # 切换class
     re = driver.find_element(By.XPATH, "//div[@class='login-form__operation']/span[text()='用户名密码登录']")
     re.click()
-
 
     # 输入账号
     wait = WebDriverWait(driver, 10)
@@ -172,21 +163,17 @@ def data_down(config, edge_options):
     password_input_element = wait.until(
         EC.visibility_of_element_located((By.CSS_SELECTOR, ".login-form__control input[type='password']")))
 
-
     # 输入密码
     input_element.send_keys(config["web_user"])
     password_input_element.send_keys(config["web_password"])
-
 
     # 点击按钮
     login_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".login-form__sumb button.control-button")))
     login_button.click()
 
-
     # 数据导出
     menu_item = wait.until(EC.element_to_be_clickable((By.XPATH, "//li[span[text()='数据导出']]")))
     menu_item.click()
-
 
     try:
         wait = WebDriverWait(driver, 20)
@@ -204,17 +191,14 @@ def data_down(config, edge_options):
 
         # 记录成功信息
         logging.info('成功下载数据')
-
     except Exception as e:
         # 记录失败信息和异常信息
         logging.error('操作失败: %s', e)
-
 
     finally:
         time.sleep(60)  # 等待下载
         # 关闭浏览器
         driver.quit()
-
 
 
 if __name__ == "__main__":
