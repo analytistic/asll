@@ -42,8 +42,8 @@ def create_connection(config):
             host=config["host"],
             user=config["user"],
             password=config["password"],
-            database=config["database"],
-            charset=config['charset']
+            # database=config["database"],
+            # charset=config['charset']
         )
         logging.info("Database connection created successfully.")
         return connection
@@ -259,6 +259,9 @@ def import_excel_to_mysql(excel_folder, config_file):
     else:
         logging.info(f"Database `{database_name}` does not exist. Proceeding with creation.")
         create_database(cursor,database_name)
+
+    # 选择数据库
+    cursor.execute(f'USE `{database_name}`;')
 
     try:
         # 遍历所有 Excel 文件

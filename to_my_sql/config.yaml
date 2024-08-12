@@ -1,21 +1,19 @@
 # sql主机连接设置
 host: rm-uf686mnkbma2165skpo.mysql.rds.aliyuncs.com
 user: root
-password: PoBing101901
+password: X
 
 # 数据库设置
-database: wx_data
+database: "wx_data"
 charset: utf8mb4      # 我直接在sql_tool.py中设置了
 basic_table: "基本信息"
 basic_table_PK: "患者编号"
 sub_table_fk: "患者编号"
-recreate: YES
+recreate: "YES"
 
 # 爬虫脚本设置
 download_directory: "data_to_mysql"
 web: "https://als.ashermed.com/web/login"
-web_user: 15079056088
-web_password: 056088
+web_user: X
+web_password: X
 web_driver_path: "D://chromedriver-win64//chromedriver.exe"
-
-
