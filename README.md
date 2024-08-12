@@ -161,6 +161,21 @@ launchctl load ~/Library/LaunchAgents/com.example.<up_date_sql>.plist
 - 点击`管理`，然后在左侧导航栏选择`白名单与安全组` ,然后选择`添加白名单分组`
 - 然后添加自己的公网`ip地址`
 
+<div style="display: flex; justify-content: center; align-items: center;">  
+    <div style="display: flex; justify-content: space-between; align-items: center;">  
+        <img src="https://github.com/bonnieouyang/wentao_code/blob/master/to_my_sql/readme_fig/1.png" alt="图片1" style="width: 45%; margin-right: 5%;">  
+        <img src="https://github.com/bonnieouyang/wentao_code/blob/master/to_my_sql/readme_fig/2.png" alt="图片2" style="width: 45%;">  
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">  
+        <img src="https://github.com/bonnieouyang/wentao_code/blob/master/to_my_sql/readme_fig/3.png" alt="图片3" style="width: 45%; margin-right: 5%;">  
+        <img src="https://github.com/bonnieouyang/wentao_code/blob/master/to_my_sql/readme_fig/workbench.png" alt="图片4" style="width: 45%;">  
+    </div>  
+</div>
+
+
 ## 2. 使用数据库
 1. DMS网页端查询
 
