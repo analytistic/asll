@@ -153,3 +153,35 @@ chmod 644 ~/Library/LaunchAgents/com.example.<up_date_sql>.plist
 ```angular2html
 launchctl load ~/Library/LaunchAgents/com.example.<up_date_sql>.plist
 ```
+# 阿里RDS数据库使用
+## 1. 设置白名单
+- 登录阿里云账号
+- 在产品界面选择`云数据库RDS`
+- 在左侧导航栏选择`实例列表`，地域选择`华东2上海`
+- 点击`管理`，然后在左侧导航栏选择`白名单与安全组` ,然后选择`添加白名单分组`
+- 然后添加自己的公网`ip地址`
+
+## 2. 使用数据库
+1. DMS网页端查询
+
+可以使用DMS直接查看数据库。在实例列表登录数据库root账户即可。
+
+2. 本地客户端查询
+
+或者使用本地客户端，建议使用`MySQL workbench`，界面比较友好。
+```angular2html
+https://dev.mysql.com/downloads/workbench/
+```
+安装好后，添加连接:
+
+- Connection Name: `rds_mysql巴拉巴拉`
+- connection Method: `standard(TCP/IP)`
+- Hostname: `rm-uf686mnkbma2165skpo.mysql.rds.aliyuncs.com`
+- Port: `3306`
+- Username: `root`
+- Password: `XXXXXX`
+
+然后连接即可
+
+
+
