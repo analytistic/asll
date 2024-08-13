@@ -38,7 +38,7 @@
    4. 密码
    5. web_driver地址（这个得改）
 
-### run_main.bat文件
+### run_main.bat文件 `win用户使用`
 1. 设置工作路径
     ```angular2html
     cd <you_path>/to_my_sql
@@ -47,9 +47,9 @@
     ```angular2html
     call <you_venv_path>\venv\Scripts\activate.bat
    
-### run_main.sh
+### run_main.sh文件 `mac用户使用`
 
-`run.sh`文件是mac用户使用的，也同bat文件一样调整路径即可:
+`run.sh`文件是mac用户使用的，同bat文件一样调整路径即可:
 1. 设置工作目录
 ```angular2html
 cd /<path_to>/asl/to_my_sql || exit
@@ -59,7 +59,11 @@ cd /<path_to>/asl/to_my_sql || exit
 ```angular2html
 source /<path_to>/venv/bin/activate
 ```
+### 检测批处理文件运行
 
+在加入`win任务计划程序`，或者mac的`launchd`前，请先手动运行一下`.bat`文件或`.sh`文件。
+如果您在确保路径设置正确后仍然遇到系统找不到路径等等问题，大概率是您的os识别不了`uft8`字符，
+把`.bat`或`.sh`文件中的中文注释删去即可。
 
 ## 三. 使用 Windows 任务计划程序定时运行脚本
 
